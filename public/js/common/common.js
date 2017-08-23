@@ -1,5 +1,25 @@
-define(["jquery", "template", "jquery_cookie"], function ($, template) {
+/**
+ * Created by 54939 on 2017/8/20.
+ */
+define(["jquery", "template", "nprogress", "jquery_cookie"], function ($, template, np) {
   $(function () {
+    
+    np.start();
+    
+    setTimeout(function () {
+      np.done();
+    }, 500);
+    
+    
+    $(document).ajaxStart(function () {
+      $(".mask").fadeIn();
+    });
+    
+    $(document).ajaxStop(function () {
+      setTimeout(function () {
+        $(".mask").fadeOut();
+      }, 400);
+    });
     
     //除了登录页面，其他页面都需要
     if (location.pathname !== "/login") {
@@ -42,6 +62,13 @@ define(["jquery", "template", "jquery_cookie"], function ($, template) {
       //侧边栏高亮（当前页面）
       //获取到地址栏中pathname，跟a标签的href属性对比，如果相同，就让这个a高亮，排他
       var pathname = location.pathname;
+      var pathObj = {
+        "/teacher/add": "/teacher/list",
+        "/settings": "/",
+      }
+      pathname = pathObj[pathname] || pathname;
+      
+      
       var $links = $(".navs a");
       $links.each(function () {
         
@@ -50,7 +77,7 @@ define(["jquery", "template", "jquery_cookie"], function ($, template) {
         $that.removeClass("active");
         
         //地址栏的地址和a标签的地址匹配
-        if( $that.attr("href") == pathname ){
+        if ($that.attr("href") == pathname) {
           $that.addClass("active");
         }
         
