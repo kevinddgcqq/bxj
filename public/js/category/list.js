@@ -1,6 +1,18 @@
 /**
- * Created by HUCC on 2017/8/22.
+ * Created by 54939 on 2017/8/22.
  */
-define([],function () {
-  console.log("呵呵");
+define(["jquery", "template"], function ($, template) {
+  $(function () {
+    $.ajax({
+      type: "get",
+      url: "/api/category",
+      success: function (info) {
+        if (info.code == 200) {
+          var html = template("category_list_tpl", info);
+          $("tbody").html(html);
+        }
+      }
+    });
+  });
+ 
 })

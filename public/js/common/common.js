@@ -65,6 +65,8 @@ define(["jquery", "template", "nprogress", "jquery_cookie"], function ($, templa
       var pathObj = {
         "/teacher/add": "/teacher/list",
         "/settings": "/",
+        "/repass": "/",
+        "/category/add": "/category/list"
       }
       pathname = pathObj[pathname] || pathname;
       
